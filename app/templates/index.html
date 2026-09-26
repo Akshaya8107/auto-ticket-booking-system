@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>School IT Helpdesk - Auto Ticket Classification</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header class="topbar"><div><h1>School IT Helpdesk</h1><p>Auto Ticket Classification using Flow Designer</p></div><a href="/docs" target="_blank">API Docs</a></header>
+<main class="container">
+  <section class="hero"><div><span class="badge">Flow Designer Simulation</span><h2>Create a support ticket</h2><p>Enter the caller and issue. The flow automatically assigns Category and Subcategory from the configured keywords.</p></div></section>
+  <div id="message" class="message hidden"></div>
+  <section class="grid two">
+    <div class="card">
+      <h3>New Incident Workflow</h3>
+      <form id="ticketForm">
+        <label>Caller Name<input id="caller_name" required placeholder="Student / Teacher name"></label>
+        <label>Caller Email<input id="caller_email" type="email" required placeholder="student@example.edu"></label>
+        <label>Short Description<input id="short_description" required placeholder="WiFi not working in library"></label>
+        <label>Description<textarea id="description" rows="4" placeholder="Describe the issue"></textarea></label>
+        <label>State<select id="state"><option>New</option><option>In progress</option><option>On hold</option><option>Resolved</option><option>Closed</option></select></label>
+        <button type="submit">Create Ticket & Classify</button>
+      </form>
+    </div>
+    <div class="card">
+      <h3>AI Classification Assistant</h3>
+      <p class="muted">Uses Gemini when configured. Otherwise a local deterministic fallback is used.</p>
+      <label>Short Description<input id="ai_short" placeholder="Projector not turning on"></label>
+      <label>Description<textarea id="ai_desc" rows="4" placeholder="Classroom projector has no display"></textarea></label>
+      <button id="aiButton" type="button" class="secondary">Ask AI</button>
+      <pre id="aiResult" class="result">No AI request yet.</pre>
+    </div>
+  </section>
+  <section class="card"><div class="section-head"><h3>Dashboard</h3><button class="secondary" id="refresh">Refresh</button></div><div id="dashboard" class="stats"></div></section>
+  <section class="card"><div class="section-head"><h3>Incident Workflow Records</h3><button class="secondary" id="load">Load Records</button></div><div class="table-wrap"><table><thead><tr><th>Number</th><th>Caller</th><th>Short Description</th><th>Category</th><th>Subcategory</th><th>State</th><th>Created</th></tr></thead><tbody id="tickets"></tbody></table></div></section>
+  <section class="card"><h3>Configured Category → Subcategory</h3><div id="dependencies" class="dependency-grid"></div></section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
